@@ -37,4 +37,4 @@ Route::middleware('auth')->group(function () {
     Route::get('/manage-users', [UserController::class, 'index'])->name('manage-users');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
