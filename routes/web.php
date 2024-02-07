@@ -26,6 +26,15 @@ Route::get('/', function () {
     ]);
 });
 
+
+Route::get('/users', function () {
+    return Inertia::render('Users/Index');
+})->middleware(['auth', 'verified']);
+
+Route::get('/roles', function () {
+    return Inertia::render('Roles/Index');
+})->middleware(['auth', 'verified']);
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
