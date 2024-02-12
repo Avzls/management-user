@@ -27,23 +27,25 @@ Route::get('/', function () {
 });
 
 
-Route::get('/users', function () {
-    return Inertia::render('Users/Index');
-})->middleware(['auth', 'verified']);
+// Route::get('/users', function () {
+//     return Inertia::render('Users/Index');
+// })->middleware(['auth', 'verified']);
+
+Route::resource('/users', UserController::class);
 
 Route::get('/roles', function () {
     return Inertia::render('Roles/Index');
 })->middleware(['auth', 'verified']);
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return Inertia::render('Dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get('/manage-users', [UserController::class, 'index'])->name('manage-users');
-});
+// Route::middleware('auth')->group(function () {
+//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+//     Route::get('/manage-users', [UserController::class, 'index'])->name('manage-users');
+// });
 
 require __DIR__ . '/auth.php';

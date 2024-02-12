@@ -11,7 +11,7 @@ const Container = ({children}) => {
                 <label htmlFor="my-drawer-2" className="text-4xl p-3 lg:hidden">
                     <CgMenuLeft />
                 </label>
-                <main className='p-3'>{children}</main>
+                <main className='pt-5 px-3 lg:px-10 w-full'>{children}</main>
             </div> 
     
             <div className="drawer-side">
