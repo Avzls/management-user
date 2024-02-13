@@ -5,6 +5,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\RoleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,10 +33,7 @@ Route::get('/', function () {
 // })->middleware(['auth', 'verified']);
 
 Route::resource('/users', UserController::class);
-
-Route::get('/roles', function () {
-    return Inertia::render('Roles/Index');
-})->middleware(['auth', 'verified']);
+Route::resource('/roles', RoleController::class);
 
 // Route::get('/dashboard', function () {
 //     return Inertia::render('Dashboard');
