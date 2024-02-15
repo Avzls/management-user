@@ -42,7 +42,7 @@ class UserController extends Controller
 
         User::create($validatedData);
 
-        return redirect()->back()->with('message', 'New User has been Added');
+        return redirect('/users')->with('message', 'New User has been Added');
     }
 
     /**

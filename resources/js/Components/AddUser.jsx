@@ -1,5 +1,5 @@
 import { useForm } from '@inertiajs/react';
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect} from 'react';
 
 const AddUser = ({ isOpen, onClose }) => {
 
@@ -30,8 +30,7 @@ const AddUser = ({ isOpen, onClose }) => {
         confPassword: ''
     })
 
-    function submit(e) {
-        e.preventDefault()
+    function submit() {
         modalRef.current.close();
         post('/users')
     }

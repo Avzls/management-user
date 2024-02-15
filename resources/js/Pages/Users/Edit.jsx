@@ -77,22 +77,14 @@ function Edit({user}) {
                             className="input input-bordered w-full" 
                             onChange={(password) => setPassword(password.target.value)}/>
                         </label>
-                        {/* <label className="form-control w-full">
-                            <div className="label">
-                                <span className="label-text">Confirm Password</span>
-                            </div>
-                            <input
-                            type="password" 
-                            placeholder="Type here" 
-                            className="input input-bordered w-full" 
-                            onChange={(confPassword) => setConfPassword(confPassword.target.value)}/>
-                        </label> */}
                     </div>
+
                     <label className='form-control w-full'>
                         <button 
                         className='btn btn-neutral hover:text-white mt-5'
                         onClick={handleSubmit}>Save</button>
                     </label>
+                    
                 </div>
             </div>
         </Container>
