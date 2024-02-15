@@ -61,7 +61,7 @@ function Index({users}) {
                         <FaEdit className='cursor-pointer'/>
                       </Link>
                       <Link href={`/users/${user.id}`} method='delete'>
-                        <FaTrashRestore className='cursor-pointer' onClick={handleDelet}/>
+                        <FaTrashRestore className='cursor-pointer'/>
                       </Link>
                     </td>
                   </tr>

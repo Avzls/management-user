@@ -1,22 +1,19 @@
-import axios from 'axios';
+import { useForm } from '@inertiajs/react';
 import React, { useRef, useEffect, useState } from 'react';
 
 const AddUser = ({ isOpen, onClose }) => {
-    const [name, setName] = useState('')
-    const [email, setEmail] = useState('')
-    const [phone, setPhone] = useState('')
-    const [password, setPassword] = useState('')
-    const [confPassword, setConfPassword] = useState('')
 
     const modalRef = useRef();
 
+    // open addUser modal
     const openModal = () => {
         modalRef.current.showModal();
     };
 
+    // close addUser modal
     const closeModal = () => {
         modalRef.current.close();
-        onClose(); // Panggil fungsi onClose yang mungkin digunakan di komponen induk
+        onClose();
     };
 
     useEffect(() => {
@@ -25,27 +22,27 @@ const AddUser = ({ isOpen, onClose }) => {
         }
     }, [isOpen]);
 
-    const handleSubmit = async () => {
-        const data = {
-            name, email, phone, password, confPassword
-        };
-    
-        try {
-            await axios.post('/users', data);
-            onClose()
-        } catch (error) {
-            console.log(error)
-        }
-    };
+    const { data, setData, post, processing, errors } = useForm({
+        name: '',
+        email: '',
+        phone: '',
+        password: '',
+        confPassword: ''
+    })
 
-  return (
+    function submit(e) {
+        e.preventDefault()
+        modalRef.current.close();
+        post('/users')
+    }
+
+return (
     <>
-      {/* Modal */}
     <dialog ref={modalRef} className="modal">
         <div className="modal-box font-ubuntu">
             <h2 className='font-semibold text-center text-2xl'>Form Add User</h2>
-            <form className='w-full'>
-            {/* {renderErrors()} */}
+
+            <form className='w-full' onSubmit={submit}>
                 <label className="form-control w-full">
                     <div className="label">
                         <span className="label-text">User name?</span>
@@ -54,7 +51,9 @@ const AddUser = ({ isOpen, onClose }) => {
                     type="text" 
                     placeholder="Type here" 
                     className="input input-bordered w-full"
-                    onChange={(name) => setName(name.target.value)}/>
+                    value={data.name} 
+                    onChange={e => setData('name', e.target.value)}/>
+                    {errors.name && <div>{errors.name}</div>}
                 </label>
                 <label className="form-control w-full">
                     <div className="label">
@@ -64,7 +63,9 @@ const AddUser = ({ isOpen, onClose }) => {
                     type="email" 
                     placeholder="Type here" 
                     className="input input-bordered w-full" 
-                    onChange={(email) => setEmail(email.target.value)}/>
+                    value={data.email} 
+                    onChange={e => setData('email', e.target.value)}/>
+                    {errors.email && <div>{errors.email}</div>}
                 </label>
                 <label className="form-control w-full">
                     <div className="label">
@@ -74,7 +75,9 @@ const AddUser = ({ isOpen, onClose }) => {
                     type="text" 
                     placeholder="Type here" 
                     className="input input-bordered w-full" 
-                    onChange={(phone) => setPhone(phone.target.value)}/>
+                    value={data.phone} 
+                    onChange={e => setData('phone', e.target.value)}/>
+                    {errors.phone && <div>{errors.phone}</div>}
                 </label>
                 <div className='flex space-x-3'>
                     <label className="form-control w-full">
@@ -85,7 +88,9 @@ const AddUser = ({ isOpen, onClose }) => {
                         type="password" 
                         placeholder="Type here" 
                         className="input input-bordered w-full" 
-                        onChange={(password) => setPassword(password.target.value)}/>
+                        value={data.password} 
+                        onChange={e => setData('password', e.target.value)}/>
+                        {errors.password && <div>{errors.password}</div>}
                     </label>
                     <label className="form-control w-full">
                         <div className="label">
@@ -95,13 +100,15 @@ const AddUser = ({ isOpen, onClose }) => {
                         type="password" 
                         placeholder="Type here" 
                         className="input input-bordered w-full" 
-                        onChange={(confPassword) => setConfPassword(confPassword.target.value)}/>
+                        value={data.confPassword} 
+                        onChange={e => setData('confPassword', e.target.value)}/>
+                        {errors.confPassword && <div>{errors.confPassword}</div>}
                     </label>
                 </div>
+
                 <label className='form-control w-full'>
                     <button 
-                    className='btn btn-neutral hover:text-white mt-5'
-                    onClick={handleSubmit}>Save</button>
+                    className='btn btn-neutral hover:text-white mt-5' type='submit' disabled={processing}>Save</button>
                 </label>
             </form>
         </div>
