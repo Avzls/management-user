@@ -30,9 +30,14 @@ const AddUser = ({ isOpen, onClose }) => {
         confPassword: ''
     })
 
-    function submit() {
-        modalRef.current.close();
-        post('/users')
+    function submit(e) {
+        e.preventDefault()
+        
+        post('/users', {
+            onSuccess: () => {
+                modalRef.current.close();
+            }
+        })
     }
 
 return (
@@ -50,9 +55,10 @@ return (
                     type="text" 
                     placeholder="Type here" 
                     className="input input-bordered w-full"
+                    autoComplete='username'
                     value={data.name} 
                     onChange={e => setData('name', e.target.value)}/>
-                    {errors.name && <div>{errors.name}</div>}
+                    {errors.name && <div className='text-red-500 italic'>{errors.name}</div>}
                 </label>
                 <label className="form-control w-full">
                     <div className="label">
@@ -60,11 +66,11 @@ return (
                     </div>
                     <input 
                     type="email" 
-                    placeholder="Type here" 
+                    placeholder="Example@gmail.com" 
                     className="input input-bordered w-full" 
                     value={data.email} 
                     onChange={e => setData('email', e.target.value)}/>
-                    {errors.email && <div>{errors.email}</div>}
+                    {errors.email && <div className='text-red-500 italic'>{errors.email}</div>}
                 </label>
                 <label className="form-control w-full">
                     <div className="label">
@@ -72,11 +78,11 @@ return (
                     </div>
                     <input 
                     type="text" 
-                    placeholder="Type here" 
+                    placeholder="0123456789" 
                     className="input input-bordered w-full" 
                     value={data.phone} 
                     onChange={e => setData('phone', e.target.value)}/>
-                    {errors.phone && <div>{errors.phone}</div>}
+                    {errors.phone && <div className='text-red-500 italic'>{errors.phone}</div>}
                 </label>
                 <div className='flex space-x-3'>
                     <label className="form-control w-full">
@@ -87,9 +93,10 @@ return (
                         type="password" 
                         placeholder="Type here" 
                         className="input input-bordered w-full" 
+                        autoComplete='new-password'
                         value={data.password} 
                         onChange={e => setData('password', e.target.value)}/>
-                        {errors.password && <div>{errors.password}</div>}
+                        {errors.password && <div className='text-red-500 italic'>{errors.password}</div>}
                     </label>
                     <label className="form-control w-full">
                         <div className="label">
@@ -99,9 +106,10 @@ return (
                         type="password" 
                         placeholder="Type here" 
                         className="input input-bordered w-full" 
+                        autoComplete='new-password'
                         value={data.confPassword} 
                         onChange={e => setData('confPassword', e.target.value)}/>
-                        {errors.confPassword && <div>{errors.confPassword}</div>}
+                        {errors.confPassword && <div className='text-red-500 italic'>{errors.confPassword}</div>}
                     </label>
                 </div>
 

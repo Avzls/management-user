@@ -19,8 +19,12 @@ function Index({users}) {
     setIsAddUserModalOpen(false);
   };
 
-  function handleDelet() {
-    confirm('are you sure')
+  function handleDelet(e) {
+    const isConfirmed = window.confirm('Are you sure?');
+  
+    if (!isConfirmed) {
+      e.preventDefault(); // Mencegah navigasi atau permintaan penghapusan
+    } 
   }
   return (
     <Container>
@@ -57,10 +61,9 @@ function Index({users}) {
                     <td>{user.phone}</td>
                     <td className='flex space-x-2 text-lg hover'>
                       <Link href={`/users/${user.id}/edit`} as='button'>
-      
                         <FaEdit className='cursor-pointer'/>
                       </Link>
-                      <Link href={`/users/${user.id}`} method='delete' as='button'>
+                      <Link href={`/users/${user.id}`} method='delete' as='button' onClick={handleDelet}>
                         <FaTrashRestore className='cursor-pointer'/>
                       </Link>
                     </td>
