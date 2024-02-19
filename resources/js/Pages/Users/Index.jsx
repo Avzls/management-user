@@ -8,7 +8,6 @@ import FlashMessage from '@/Components/FlashMessage';
 
 function Index({users}) {
   const [isAddUserModalOpen, setIsAddUserModalOpen] = useState(false);
-  // const [errors, setErrors] = useState([])
   const { flash } = usePage().props
 
   const handleAddUserClick = () => {
