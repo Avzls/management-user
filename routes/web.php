@@ -33,7 +33,12 @@ Route::get('/', function () {
 // })->middleware(['auth', 'verified']);
 
 Route::resource('/users', UserController::class);
-Route::resource('/roles', RoleController::class);
+// Route::resource('/roles', RoleController::class);
+
+Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
+Route::get('/roles/{id}/edit', [RoleController::class, 'edit'])->name('roles.edit'); // Menampilkan halaman edit role
+Route::put('/roles/{id}', [RoleController::class, 'update'])->name('roles.update'); // Menyimpan perubahan pada role
+
 
 // Route::get('/dashboard', function () {
 //     return Inertia::render('Dashboard');
