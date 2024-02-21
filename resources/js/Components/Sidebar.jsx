@@ -18,6 +18,9 @@ const Sidebar = () => {
           <li>
               <Link className='text-sm font-semibold' href='/roles'>Roles</Link>
           </li>
+          <li>
+              <Link className='text-sm font-semibold' href='/permission'>Permission</Link>
+          </li>
           <span className=' text-[#5D666A]'>AUTHENTICATE</span>
           <li>
           <button className="btn leading-loose">Logout</button>
