@@ -19,7 +19,7 @@ const Sidebar = () => {
               <Link className='text-sm font-semibold' href='/roles'>Roles</Link>
           </li>
           <li>
-              <Link className='text-sm font-semibold' href='/permission'>Permission</Link>
+              <Link className='text-sm font-semibold' href='/permissions'>Permission</Link>
           </li>
           <span className=' text-[#5D666A]'>AUTHENTICATE</span>
           <li>
