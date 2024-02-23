@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -33,6 +34,9 @@ Route::get('/', function () {
 // })->middleware(['auth', 'verified']);
 
 Route::resource('/users', UserController::class);
+
+Route::resource('permissions', PermissionController::class);
+
 // Route::resource('/roles', RoleController::class);
 
 Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
