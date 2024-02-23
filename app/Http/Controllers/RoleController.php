@@ -2,42 +2,52 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Role;
 use Inertia\Inertia;
-use App\Models\User;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
 {
     public function index()
     {
-        $roles = Role::with('users')->get();
-
         return Inertia::render('Roles/Index', [
-            'roles' => $roles,
+            'roles' => Role::all()
         ]);
     }
 
-    public function edit($id)
-    {
-        $role = Role::findOrFail($id);
-        $roles = Role::all(); // Ambil semua data roles
-        return Inertia::render('Roles/Edit', [
-            'role' => $role,
-            'roles' => $roles, // Kirim data roles ke komponen React
-        ]);
-    }
-
-
-    public function update(Request $request, $id)
+    public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'role' => 'required|string|max:255',
+            'name' => ['required', 'unique:roles,name']
         ]);
 
-        $role = Role::findOrFail($id);
-        $role->update($validatedData);
+        Role::create($validatedData);
 
-        return redirect()->route('roles.index')->with('success', 'Role updated successfully.');
+        return redirect('/roles')->with('message', 'Role Created Successfully');
+    }
+
+    public function edit(Role $Role)
+    {
+        return Inertia::render('Roles/Edit', [
+            'Role' => $Role
+        ]);
+    }
+
+    public function update(Request $request, Role $Role)
+    {
+        $validatedData = $request->validate([
+            'name' => ['required', 'unique:roles,name']
+        ]);
+
+        Role::where('id', $Role->id)->update($validatedData);
+
+        return redirect('/roles')->with('message', 'Role has been Updated');
+    }
+
+    public function destroy(Role $Role)
+    {
+        Role::destroy($Role->id);
+
+        return redirect('/roles')->with('message', 'Role has been Deleted');
     }
 }

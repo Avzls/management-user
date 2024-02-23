@@ -1,83 +1,75 @@
-import axios from 'axios';
-import React, { useRef, useEffect, useState } from 'react';
+import { useForm } from '@inertiajs/react';
+import React, { useRef, useEffect} from 'react';
 
 const AddRole = ({ isOpen, onClose }) => {
-    const [name, setName] = useState('');
-    const [role, setRole] = useState('');
 
     const modalRef = useRef();
 
+    // open addUser modal
     const openModal = () => {
         modalRef.current.showModal();
     };
 
+    // close addUser modal
     const closeModal = () => {
         modalRef.current.close();
-        onClose(); 
+        onClose();
     };
 
     useEffect(() => {
         if (isOpen) {
-            openModal();
+        openModal();
         }
     }, [isOpen]);
 
-    const handleSubmit = async () => {
-        const data = {
-            name,
-            role
-        };
+    const { data, setData, post, processing, errors } = useForm({
+        name: '',
+    })
 
-        try {
-            await axios.post('/roles', data);
-            onClose();
-        } catch (error) {
-            console.log(error);
-        }
-    };
+    function submit(e) {
+        e.preventDefault()
+        
+        post('/roles', {
+            onSuccess: () => {
+                modalRef.current.close();
+            }
+        })
+    }
 
-    return (
-        <>
-            {/* Modal */}
-            <dialog ref={modalRef} className="modal">
-                <div className="modal-box font-ubuntu">
-                    <h2 className='font-semibold text-center text-2xl'>Add Role Form</h2>
-                    <form className='w-full'>
-                        {/* {renderErrors()} */}
-                        <label className="form-control w-full">
-                            <div className="label">
-                                <span className="label-text">Role Name</span>
-                            </div>
-                            <input
-                                type="text"
-                                placeholder="Type here"
-                                className="input input-bordered w-full"
-                                onChange={(event) => setName(event.target.value)} />
-                        </label>
-                        <label className="form-control w-full">
-                            <div className="label">
-                                <span className="label-text">Role</span>
-                            </div>
-                            <input
-                                type="text"
-                                placeholder="Type here"
-                                className="input input-bordered w-full"
-                                onChange={(event) => setRole(event.target.value)} />
-                        </label>
-                        <label className='form-control w-full'>
-                            <button
-                                className='btn btn-neutral hover:text-white mt-5'
-                                onClick={handleSubmit}>Save</button>
-                        </label>
-                    </form>
-                </div>
+return (
+    <>
+    <dialog ref={modalRef} className="modal">
+        <div className="modal-box font-ubuntu">
+            <h2 className='font-semibold text-center text-2xl'>Form Add Role</h2>
 
-                <div method="dialog" className="modal-backdrop">
-                    <button onClick={closeModal}>Close</button>
-                </div>
-            </dialog>
-        </>
-    );
+            <form className='w-full' onSubmit={submit}>
+                <label className="form-control w-full">
+                    <div className="label">
+                        <span className="label-text">Role</span>
+                    </div>
+                    <input 
+                    type="text" 
+                    placeholder="Type here" 
+                    className="input input-bordered w-full"
+                    autoComplete='username'
+                    value={data.name} 
+                    onChange={e => setData('name', e.target.value)}/>
+                    {errors.name && <div className='text-red-500 italic'>{errors.name}</div>}
+                </label>
+
+                <label className='form-control w-full'>
+                    <button 
+                    className='btn btn-neutral hover:text-white mt-5' type='submit' disabled={processing}>Save</button>
+                </label>
+            </form>
+        </div>
+        
+        <div method="dialog" className="modal-backdrop">
+            <button onClick={closeModal}>close</button>
+        </div>
+    </dialog>
+    </>
+  );
 };
 
 export default AddRole;
