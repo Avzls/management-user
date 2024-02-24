@@ -9,7 +9,7 @@ const Sidebar = () => {
           {/* Sidebar content here */}
           <span className=' text-[#5D666A]'>GENERAL</span>
           <li>
-            <Link className='text-sm font-semibold'>Messages</Link>
+            <Link className='text-sm font-semibold' href='/dashboard'>Dashboard</Link>
           </li>
           <span className=' text-[#5D666A]'>MANAGEMENT USERS</span>
           <li>
