@@ -1,6 +1,6 @@
 import React,{ useState } from 'react'
 import { Head, usePage, Link, router  } from '@inertiajs/react';
-import { FaEdit, FaTrashRestore } from "react-icons/fa";
+import { FaEdit, FaPencilAlt, FaTrashRestore } from "react-icons/fa";
 
 import Container from '../Container';
 import AddRole from '@/Components/AddRole';
@@ -56,6 +56,9 @@ function Index({roles}) {
                         <tr key={Role.id} className='hover'>
                             <th>{Role.name}</th>
                             <td className='flex space-x-2 text-lg hover'>
+                            <Link href={`roles/${Role.id}/give-permissions`} as='button'>
+                                <FaPencilAlt className='cursor-pointer'/>
+                            </Link>
                             <Link href={`/roles/${Role.id}/edit`} as='button'>
                                 <FaEdit className='cursor-pointer'/>
                             </Link>

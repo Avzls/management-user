@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class RoleController extends Controller
 {
@@ -50,4 +51,28 @@ class RoleController extends Controller
 
         return redirect('/roles')->with('message', 'Role has been Deleted');
     }
+
+
+    public function addPermissionToRole($roleId)
+{
+    $permissions = Permission::get();
+    $role = Role::findOrFail($roleId);
+
+    return Inertia::render('Roles/AddPermission', [
+        'role' => $role,
+    ]);
+}
+
+public function givePermissionToRole(Request $request, $roleId)
+{
+    $request->validate([
+        'permission' => 'required|array', // Pastikan permission adalah array
+        'permission.*' => 'exists:permissions,name' // Validasi setiap item permission dalam array
+    ]);
+
+    $role = Role::findOrFail($roleId);
+    $role->syncPermissions($request->permission);
+
+    return redirect()->route('roles.AddPermission', ['roleId' => $roleId])->with('status', 'Success');
+}
 }

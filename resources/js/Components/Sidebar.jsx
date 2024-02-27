@@ -23,7 +23,7 @@ const Sidebar = () => {
           </li>
           <span className=' text-[#5D666A]'>AUTHENTICATE</span>
           <li>
-          <button className="btn leading-loose">Logout</button>
+          <button className="btn leading-loose" href={route('logout')} method="post" >Logout</button>
           </li>
       </ul>
     </>
