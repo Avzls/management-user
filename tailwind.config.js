@@ -14,9 +14,11 @@ export default {
         extend: {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                ubuntu: ["'Ubuntu', 'sans-serif'"],
+                bilbo: ["'Bilbo Swash Caps', 'cursive'"],
             },
         },
     },
 
-    plugins: [forms],
+    plugins: [forms, require("daisyui")],
 };
